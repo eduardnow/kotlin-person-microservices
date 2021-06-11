@@ -1,0 +1,8 @@
+app:
+    person-ms:
+        url: "http://localhost:9090/person-ms/v1/"
+
+logging:
+    level:
+        org:
+            springframework: DEBUG

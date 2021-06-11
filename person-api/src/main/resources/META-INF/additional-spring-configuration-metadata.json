@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "app.person-ms.url",
+      "type": "java.lang.String",
+      "description": "Base url of the person microservice."
+    }
+  ]
+}

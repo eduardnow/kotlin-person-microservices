@@ -1,0 +1,41 @@
+server:
+  servlet:
+    context-path: /person-api
+  port: 9080
+  error:
+    include-stacktrace: NEVER
+
+app:
+  person-ms:
+    url: "http://personms:9090/person-ms/v1/"
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
+        recordExceptions:
+          - org.springframework.web.client.HttpServerErrorException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+    instances:
+      personMsService:
+        baseConfig: default
+
+spring:
+  devtools:
+    add-properties:
+      false
+
+logging:
+  level:
+    web: INFO
+    org:
+      springframework: INFO
